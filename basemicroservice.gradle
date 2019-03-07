@@ -1,0 +1,39 @@
+apply plugin: 'java'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'jacoco'
+apply plugin: 'io.spring.dependency-management'
+apply plugin: "org.sonarqube"
+apply plugin: 'org.springframework.boot'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+
+    maven {
+
+        url "$nexus_contextUrl"
+        credentials {
+            username "$nexus_user"
+            password "$nexus_password"
+        }
+    }
+
+}
+
+
+configurations {
+    providedRuntime
+}
+
+
